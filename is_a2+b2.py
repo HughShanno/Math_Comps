@@ -1,5 +1,7 @@
+from prime_factorization import find_prime_factors
 
-def is_ab(n):
+
+def is_sum_of_squares_proper_approach(n):
     squares = set()
 
     i = 0
@@ -13,4 +15,14 @@ def is_ab(n):
             return (square, n-square)
     return False
 
-print(is_ab(126))
+def is_sum_of_squares(n):
+    decomposition = find_prime_factors(n+1)
+    sum_of_squares = True
+    for key, val in decomposition[n].items():
+        if key%4 == 3 and val%2:
+            sum_of_squares = False
+    return sum_of_squares
+
+
+
+print(is_sum_of_squares_proper_approach(126))
