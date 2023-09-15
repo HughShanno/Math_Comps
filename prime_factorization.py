@@ -14,13 +14,5 @@ def find_prime_factors(n): # pass in 1 number higher than you actually need
         i += 1
     return decomp
 
-decomposition = find_prime_factors(127)
 
-i = 2 #prints out the prime factors of each number
-for factorization in decomposition[2:]:
-    print(i, ':', end = ' ')
-    for key in sorted(factorization.keys()):
-        print('(' + str(key) + '^' + str(factorization[key]) + ')', end = '')
-    print('')
-    i += 1
 
