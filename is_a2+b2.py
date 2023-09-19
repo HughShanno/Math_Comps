@@ -34,9 +34,9 @@ def to_csv(n):
                 to_write += str(key) + '^' + str(factorization[key]) + ' * '
             to_write = to_write[:-3]
             to_write += ','
-            to_write += str(is_sum_of_squares_proper_approach(i)) + '\n'
+            to_write += '"' + str(is_sum_of_squares_proper_approach(i)) + '"' + '\n'
             fout.write(to_write)
             i += 1
 
 
-to_csv(250)
+to_csv(1000)
