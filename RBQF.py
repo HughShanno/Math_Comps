@@ -1,4 +1,4 @@
-
+from reduce.py import reduce
 
 def coefsOfBQF(d):
     if(d%4 == 3 or d%4 == 2):
@@ -12,7 +12,7 @@ def coefsOfBQF(d):
             c = (b**2 -d)/(4*a)
             if(c.is_integer()):
                 coefs.append((a,b,int(c)))
-                if(b != 0 and b < a):
+                if(b != 0 and b < a and int(c)!= a):
                     coefs.append((a,-b,int(c)))
             b += 1
         a += 1
@@ -33,10 +33,13 @@ def isFundamental(d):
         if(d%4 == 0 or d%4 == 1):
             return False
     
+    #check if it's divisible by 4
     if(d%2 == 0):
         d = d/2
         if(d%2 == 0):
             return False
+    #to check the rest of the squares we only need to check up to sqrt(d), so look for the numbers that divide d
+    # and check if you can divide d twice by them, if you can, then it's not fundamental.
     for i in range(3, int(abs(d)**0.5 + 1)):
         if d % i == 0:
             d = d / i
@@ -48,11 +51,19 @@ def isFundamental(d):
 
 def main():
     d = -1
-    while(d >= -200):
-        #if(isFundamental(d)):
-        classNumber = len(coefsOfBQF(d))
-        print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefsOfBQF(d)))
+    while(d >= -100):
+        if(isFundamental(d)):
+            coefs = coefsOfBQF(d)
+            for list in coefs:
+                assert(reduce(list[0],list[1],list[2]) == list)
+            classNumber = len(coefs)
+            print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs))
+        elif(d % 4 == 3 or d % 4 == 2):
+            pass
+        else:
+            classNumber = len(coefsOfBQF(d))
+            print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefsOfBQF(d))+ " Not Fundamental")
         d -= 1
-    
+
 
 main()
