@@ -1,4 +1,4 @@
-from reduce.py import reduce
+from Reduce import reduce
 
 def coefsOfBQF(d):
     if(d%4 == 3 or d%4 == 2):
@@ -11,9 +11,12 @@ def coefsOfBQF(d):
         while (b <= a):
             c = (b**2 -d)/(4*a)
             if(c.is_integer()):
-                coefs.append((a,b,int(c)))
-                if(b != 0 and b < a and int(c)!= a):
-                    coefs.append((a,-b,int(c)))
+                reducedList = reduce(a,b,c)
+                if (a == reducedList[0] and b == reducedList[1] and c == reducedList[2]):
+                    coefs.append((int(a),int(b),int(c)))
+                    reducedList2 = reduce(a,-b,c)
+                    if(reducedList2 != reducedList):
+                        coefs.append((int(a),int(-b),int(c)))
             b += 1
         a += 1
     return coefs
@@ -52,17 +55,14 @@ def isFundamental(d):
 def main():
     d = -1
     while(d >= -100):
+        coefs = coefsOfBQF(d)
+        classNumber = len(coefs)
         if(isFundamental(d)):
-            coefs = coefsOfBQF(d)
-            for list in coefs:
-                assert(reduce(list[0],list[1],list[2]) == list)
-            classNumber = len(coefs)
             print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs))
         elif(d % 4 == 3 or d % 4 == 2):
             pass
         else:
-            classNumber = len(coefsOfBQF(d))
-            print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefsOfBQF(d))+ " Not Fundamental")
+            print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs)+ " Not Fundamental")
         d -= 1
 
 

@@ -13,6 +13,6 @@ def reduce(a,b,c):
 
 
 def main():
-    print(str(reduce(1,-1,11)))
+    print(str(reduce(3,3,3)))
 
-main()
+#main()
