@@ -56,6 +56,10 @@ def main():
     d = -1
     while(d >= -100):
         coefs = coefsOfBQF(d)
+        for list in coefs:
+            assert(-list[0] < list[1] <= list[0] <= list[2])
+            if(list[0] == list[2]):
+                assert(list[1] >= 0)
         classNumber = len(coefs)
         if(isFundamental(d)):
             print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs))

@@ -1,3 +1,4 @@
+
 def reduce(a,b,c):
     if c<a:
         return reduce(c,-b,a)
@@ -13,6 +14,6 @@ def reduce(a,b,c):
 
 
 def main():
-    print(str(reduce(3,3,3)))
+    print(str(reduce(2, -1 ,3)))
 
-#main()
+main()
