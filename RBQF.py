@@ -26,7 +26,6 @@ def displayBQFS(coefs):
     for i in range(length):
         print(str(coefs[i][0])+"x^2 + "+ str(coefs[i][1])+"xy + "+ str(coefs[i][2])+"y^2")
 
-# add a checker for fundamental discriminants.
 
 def isFundamental(d):
     if(d%4 == 3 or d%4 == 2):
@@ -52,9 +51,14 @@ def isFundamental(d):
     return True
 
 
-def main():
+def bqfUpTo(lim):
+    try:
+        assert(lim < 0)
+    except:
+        print("lim must be less than 0")
+        return
     d = -1
-    while(d >= -100):
+    while(d >= lim):
         coefs = coefsOfBQF(d)
         for list in coefs:
             assert(-list[0] < list[1] <= list[0] <= list[2])
@@ -69,5 +73,12 @@ def main():
             print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs)+ " Not Fundamental")
         d -= 1
 
-
-main()
+def bqfOfD(d):
+    coefs = coefsOfBQF(d)
+    classNumber = len(coefs)
+    if(isFundamental(d)):
+        print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs))
+    elif(d % 4 == 3 or d % 4 == 2):
+        print("h(" + str(d) + ") = 0")
+    else:
+        print("h(" + str(d) + ") = " + str(classNumber) + " = " + str(coefs)+ " Not Fundamental")
